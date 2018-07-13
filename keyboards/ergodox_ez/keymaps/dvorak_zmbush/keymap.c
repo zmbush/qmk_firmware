@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
         KC_RGHT,  KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
-        TG(QWER), KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
+        DF(QWER), KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
                   KC_D,   KC_H,   KC_T,   KC_N,   LT(MDIA, KC_S),   KC_MINS,
         KC_MEH,   KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSFT,
                           KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          MO(SYMB),
@@ -64,42 +64,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: QWERTY layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |   =    | 1    | 2    | 3    | 4    | 5    | LEFT |           | RIGHT| 6    | 7    | 8    | 9    | 0    |   \    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        | Q    | W    | E    | R    | T    |      |           |      | Y    | U    | I    | O    | P    |        |
+ * | Tab    | Q    | W    | E    | R    | T    |  Esc |           | L1   | Y    | U    | I    | O    | P    |   /    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        | A    | S    | D    | F    | G    |------|           |------| H    | J    | K    | L    | ;/L3 |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |Z/Ctrl| X    | C    | V    | B    |      |           |      | N    | M    | ,    | .    |'/Ctrl|        |
+ * | Del    | A    | S    | D    | F    | G    |------|           |------| H    | J    | K    | L    | ;/L3 |   -    |
+ * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
+ * | LShift |Z/Ctrl| X    | C    | V    | B    |      |           |      | N    | M    | ,    | .    |'/Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   |GRV/L1|  '"  | Alt  | Left | Right|                                       | Up   | Down | [    |   ]  | ~L2  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        | App  | LGui |       | Alt  | Tab  |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      | Home |       | PgUp |      |      |
+ *                                 | Space|Backsp|------|       |------| Esc  |Enter |
+ *                                 |      |ace   | End  |       | PgDn |      |      |
  *                                 `--------------------'       `--------------------'
  */
 [QWER] = LAYOUT_ergodox(
-        KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,    KC_TRNS,
-        KC_TRNS, KC_A,       KC_S,    KC_D,    KC_F,    KC_G,
-        KC_TRNS, CTL_T(KC_Z),KC_X,    KC_C,    KC_V,    KC_B,    KC_TRNS,
-        KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
-                                            KC_TRNS, KC_TRNS,
-                                                     KC_TRNS,
-                                   KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_EQL,       KC_1,       KC_2,    KC_3,    KC_4,    KC_5,    KC_LEFT,
+        KC_TAB,       KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,    KC_ESC,
+        KC_DELT,      KC_A,       KC_S,    KC_D,    KC_F,    KC_G,
+        KC_LSFT,      CTL_T(KC_Z),KC_X,    KC_C,    KC_V,    KC_B,    KC_HYPR,
+        GUI_T(KC_GRV),KC_QUOT,    KC_LALT, KC_LEFT, KC_RGHT,
+
+        ALT_T(KC_APP),    KC_LGUI,
+                          KC_HOME,
+        KC_SPC,  KC_BSPC, KC_END,
+
         // right hand
-        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,
-        KC_TRNS,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,              KC_TRNS,
-                  KC_H,    KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), KC_TRNS,
-        KC_TRNS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_QUOT),    KC_TRNS,
-                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,
-        KC_TRNS, KC_TRNS,
-        KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS
+        KC_RGHT,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,              KC_BSLS,
+        DF(BASE), KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,              KC_SLSH,
+                  KC_H,    KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), KC_MINS,
+        KC_MEH,   KC_N,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_QUOT),    KC_RSFT,
+                           KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,           KC_TRNS,
+        KC_LALT, KC_TAB,
+        KC_PGUP,
+        KC_PGDN, KC_BSPC, KC_END
     ),
 /* Keymap 2: Symbol Layer
  *
@@ -187,6 +189,62 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+#define OFF 0
+#define DIM 7
+#define BRIGHT 64
+
+const uint8_t DEFAULT_LAYER_LEDS[][3] = {
+    [BASE] = {OFF, OFF, OFF},
+    [QWER] = {DIM, DIM, DIM},
+};
+
+const uint8_t LAYER_LEDS[][3] = {
+    [SYMB] = {BRIGHT, OFF, OFF},
+    [MDIA] = {OFF, BRIGHT, OFF},
+};
+
+void set_all_lights(const uint8_t leds[]) {
+  if (leds[0] != OFF) {
+    ergodox_right_led_1_on();
+    ergodox_right_led_1_set(leds[0]);
+  }
+  if (leds[1] != OFF) {
+    ergodox_right_led_2_on();
+    ergodox_right_led_2_set(leds[1]);
+  }
+  if (leds[2] != OFF) {
+    ergodox_right_led_3_on();
+    ergodox_right_led_3_set(leds[2]);
+  }
+}
+
+uint32_t previous_seen_state;
+void set_lights(uint8_t layer) {
+  ergodox_board_led_off();
+  ergodox_right_led_1_off();
+  ergodox_right_led_2_off();
+  ergodox_right_led_3_off();
+
+  set_all_lights(DEFAULT_LAYER_LEDS[biton32(default_layer_state)]);
+  set_all_lights(LAYER_LEDS[layer]);
+}
+
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) { set_lights(BASE); }
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+  if (previous_seen_state != (layer_state | default_layer_state)) {
+    previous_seen_state = layer_state | default_layer_state;
+    set_lights(biton(layer_state));
+  }
+};
+
+uint32_t layer_state_set_user(uint32_t state) {
+  set_lights(biton32(state));
+  return state;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (record->event.pressed) {
     switch (keycode) {
@@ -200,45 +258,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   }
   return true;
 };
-
-#define OFF 0
-#define DIM 7
-#define BRIGHT 64
-
-const uint8_t LAYER_LEDS[][3] = {
-    [BASE] = {DIM, OFF, OFF},
-    [QWER] = {DIM, DIM, DIM},
-    [SYMB] = {OFF, OFF, DIM},
-    [MDIA] = {OFF, DIM, OFF},
-};
-
-void set_lights(uint8_t layer) {
-  ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_2_off();
-  ergodox_right_led_3_off();
-
-  if (LAYER_LEDS[layer][0] != OFF) {
-    ergodox_right_led_1_on();
-    ergodox_right_led_1_set(LAYER_LEDS[layer][0]);
-  }
-  if (LAYER_LEDS[layer][1] != OFF) {
-    ergodox_right_led_2_on();
-    ergodox_right_led_2_set(LAYER_LEDS[layer][1]);
-  }
-  if (LAYER_LEDS[layer][2] != OFF) {
-    ergodox_right_led_3_on();
-    ergodox_right_led_3_set(LAYER_LEDS[layer][2]);
-  }
-}
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) { set_lights(BASE); }
-
-uint32_t layer_state_set_user(uint32_t state) {
-  set_lights(biton32(state));
-  return state;
-}
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void){};
