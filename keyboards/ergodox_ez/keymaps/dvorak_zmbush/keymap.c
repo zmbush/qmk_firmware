@@ -10,6 +10,7 @@
 
 enum custom_keycodes {
   VRSN = SAFE_RANGE,
+  EPRM,
 };
 
 // clang-format off
@@ -84,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWER] = LAYOUT_ergodox(
         KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,    KC_TRNS,
-        KC_TRNS, KC_A,       KC_S,    KC_D,    KC_F,    KC_G,   
+        KC_TRNS, KC_A,       KC_S,    KC_D,    KC_F,    KC_G,
         KC_TRNS, CTL_T(KC_Z),KC_X,    KC_C,    KC_V,    KC_B,    KC_TRNS,
         KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
                                             KC_TRNS, KC_TRNS,
@@ -111,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |%/Ctrl|   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   \  |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |    . |   0  |   =  |      |
+ *   |EEPROM|      |      |      |      |                                       |      |    . |   0  |   =  |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -128,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_EXLM,       KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
        KC_TRNS,KC_HASH,       KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
        KC_TRNS,CTL_T(KC_PERC),KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
-       KC_TRNS,KC_TRNS,       KC_TRNS,KC_TRNS,KC_TRNS,
+       EPRM,   KC_TRNS,       KC_TRNS,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
@@ -186,54 +187,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (record->event.pressed) {
     switch (keycode) {
       case VRSN:
         SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+        return false;
+      case EPRM:
+        eeconfig_init();
         return false;
     }
   }
   return true;
 };
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void){
-
-};
-
+#define OFF 0
 #define DIM 7
 #define BRIGHT 64
 
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+const uint8_t LAYER_LEDS[][3] = {
+    [BASE] = {DIM, OFF, OFF},
+    [QWER] = {DIM, DIM, DIM},
+    [SYMB] = {OFF, OFF, DIM},
+    [MDIA] = {OFF, DIM, OFF},
+};
 
+void set_lights(uint8_t layer) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
-  switch (layer) {
-    // TODO: Make this relevant to the ErgoDox EZ.
-    case BASE:
-      ergodox_right_led_1_on();
-      ergodox_right_led_1_set(DIM);
-      break;
-    case QWER:
-      ergodox_right_led_1_on();
-      ergodox_right_led_1_set(BRIGHT);
-      ergodox_right_led_2_on();
-      ergodox_right_led_2_set(BRIGHT);
-      ergodox_right_led_3_on();
-      ergodox_right_led_3_set(BRIGHT);
-      break;
-    case SYMB:
-      ergodox_right_led_1_on();
-      ergodox_right_led_1_set(BRIGHT);
-      break;
-    case MDIA:
-      ergodox_right_led_2_on();
-      ergodox_right_led_2_set(BRIGHT);
-      break;
+
+  if (LAYER_LEDS[layer][0] != OFF) {
+    ergodox_right_led_1_on();
+    ergodox_right_led_1_set(LAYER_LEDS[layer][0]);
   }
-};
+  if (LAYER_LEDS[layer][1] != OFF) {
+    ergodox_right_led_2_on();
+    ergodox_right_led_2_set(LAYER_LEDS[layer][1]);
+  }
+  if (LAYER_LEDS[layer][2] != OFF) {
+    ergodox_right_led_3_on();
+    ergodox_right_led_3_set(LAYER_LEDS[layer][2]);
+  }
+}
+
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) { set_lights(BASE); }
+
+uint32_t layer_state_set_user(uint32_t state) {
+  set_lights(biton32(state));
+  return state;
+}
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void){};
