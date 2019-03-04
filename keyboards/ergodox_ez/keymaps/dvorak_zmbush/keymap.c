@@ -11,6 +11,33 @@
 enum custom_keycodes {
   VRSN = SAFE_RANGE,
   EPRM,
+  RGB_SLD,
+};
+
+enum {
+  TD_1_F1 = 0,
+  TD_2_F2,
+  TD_3_F3,
+  TD_4_F4,
+  TD_5_F5,
+  TD_6_F6,
+  TD_7_F7,
+  TD_8_F8,
+  TD_9_F9,
+  TD_0_F10,
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_1_F1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_F1),
+  [TD_2_F2] = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_F2),
+  [TD_3_F3] = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_F3),
+  [TD_4_F4] = ACTION_TAP_DANCE_DOUBLE(KC_4, KC_F4),
+  [TD_5_F5] = ACTION_TAP_DANCE_DOUBLE(KC_5, KC_F5),
+  [TD_6_F6] = ACTION_TAP_DANCE_DOUBLE(KC_6, KC_F6),
+  [TD_7_F7] = ACTION_TAP_DANCE_DOUBLE(KC_7, KC_F7),
+  [TD_8_F8] = ACTION_TAP_DANCE_DOUBLE(KC_8, KC_F8),
+  [TD_9_F9] = ACTION_TAP_DANCE_DOUBLE(KC_9, KC_F9),
+  [TD_0_F10] = ACTION_TAP_DANCE_DOUBLE(KC_0, KC_F10),
 };
 
 // clang-format off
@@ -18,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   \    |
+ * |   =    | 1/F1 | 2/F2 | 3/F3 | 4/F4 | 5/F5 | LEFT |           | RIGHT| 6/F6 | 7/F7 | 8/F8 | 9/F9 | 0/F10|   \    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   '  |   ,  |   .  |   P  |   Y  |  Esc |           |  L1  |   F  |   G  |   C  |   R  |   L  |   /    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -40,11 +67,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_TAB,         KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   KC_ESC,
-        KC_DELT,        KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
-        KC_LSFT,        CTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   KC_HYPR,
-        GUI_T(KC_GRV),  KC_QUOT,        KC_LALT, KC_LEFT,KC_RGHT,
+        KC_EQL,         TD(TD_1_F1),    TD(TD_2_F2), TD(TD_3_F3), TD(TD_4_F4), TD(TD_5_F5), KC_LEFT,
+        KC_TAB,         KC_QUOT,        KC_COMM,     KC_DOT,      KC_P,        KC_Y,        KC_ESC,
+        KC_DELT,        KC_A,           KC_O,        KC_E,        KC_U,        KC_I,
+        KC_LSFT,        CTL_T(KC_SCLN), KC_Q,        KC_J,        KC_K,        KC_X,        KC_HYPR,
+        GUI_T(KC_GRV),  KC_QUOT,        KC_LALT,     KC_LEFT,     KC_RGHT,
 
         // Left thumb cluster
         ALT_T(KC_APP),   KC_LGUI,
@@ -52,19 +79,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_SPC, KC_BSPC, KC_END,
 
         // right hand
-        KC_RGHT,  KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
-        DF(QWER), KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
-                  KC_D,   KC_H,   KC_T,   KC_N,   LT(MDIA, KC_S),   KC_MINS,
-        KC_MEH,   KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSFT,
-                          KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          MO(SYMB),
+        KC_RGHT,  TD(TD_6_F6), TD(TD_7_F7), TD(TD_8_F8), TD(TD_9_F9), TD(TD_0_F10),   KC_BSLS,
+        DF(QWER), KC_F,        KC_G,        KC_C,        KC_R,        KC_L,           KC_SLSH,
+                  KC_D,        KC_H,        KC_T,        KC_N,        LT(MDIA, KC_S), KC_MINS,
+        KC_MEH,   KC_B,        KC_M,        KC_W,        KC_V,        CTL_T(KC_Z),    KC_RSFT,
+                               KC_UP,       KC_DOWN,     KC_LBRC,     KC_RBRC,        MO(SYMB),
         KC_LALT,  KC_TAB,
         KC_PGUP,
-        KC_PGDN,  KC_ESC, KC_ENT
+        KC_PGDN,  KC_ESC,      KC_ENT
     ),
 /* Keymap 1: QWERTY layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    | 1    | 2    | 3    | 4    | 5    | LEFT |           | RIGHT| 6    | 7    | 8    | 9    | 0    |   \    |
+ * |   =    | 1/F1 | 2/F2 | 3/F3 | 4/F4 | 5/F5 | LEFT |           | RIGHT| 6/F6 | 7/F7 | 8/F8 | 9/F9 | 0/F10|   \    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    | Q    | W    | E    | R    | T    |  Esc |           | L1   | Y    | U    | I    | O    | P    |   /    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -83,22 +110,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 [QWER] = LAYOUT_ergodox(
-        KC_EQL,       KC_1,       KC_2,    KC_3,    KC_4,    KC_5,    KC_LEFT,
-        KC_TAB,       KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,    KC_ESC,
-        KC_DELT,      KC_A,       KC_S,    KC_D,    KC_F,    KC_G,
-        KC_LSFT,      CTL_T(KC_Z),KC_X,    KC_C,    KC_V,    KC_B,    KC_HYPR,
-        GUI_T(KC_GRV),KC_QUOT,    KC_LALT, KC_LEFT, KC_RGHT,
+        KC_EQL,       TD(TD_1_F1), TD(TD_2_F2), TD(TD_3_F3), TD(TD_4_F4), TD(TD_5_F5), KC_LEFT,
+        KC_TAB,       KC_Q,        KC_W,        KC_E,        KC_R,        KC_T,        KC_ESC,
+        KC_DELT,      KC_A,        KC_S,        KC_D,        KC_F,        KC_G,
+        KC_LSFT,      CTL_T(KC_Z), KC_X,        KC_C,        KC_V,        KC_B,        KC_HYPR,
+        GUI_T(KC_GRV),KC_QUOT,     KC_LALT,     KC_LEFT,     KC_RGHT,
 
         ALT_T(KC_APP),    KC_LGUI,
                           KC_HOME,
         KC_SPC,  KC_BSPC, KC_END,
 
         // right hand
-        KC_RGHT,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,              KC_BSLS,
-        DF(BASE), KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,              KC_SLSH,
-                  KC_H,    KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), KC_MINS,
-        KC_MEH,   KC_N,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_QUOT),    KC_RSFT,
-                           KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,           KC_TRNS,
+        KC_RGHT,  TD(TD_6_F6), TD(TD_7_F7), TD(TD_8_F8), TD(TD_9_F9), TD(TD_0_F10),      KC_BSLS,
+        DF(BASE), KC_Y,        KC_U,        KC_I,        KC_O,        KC_P,              KC_SLSH,
+                  KC_H,        KC_J,        KC_K,        KC_L,        LT(MDIA, KC_SCLN), KC_MINS,
+        KC_MEH,   KC_N,        KC_M,        KC_COMM,     KC_DOT,      CTL_T(KC_QUOT),    KC_RSFT,
+                               KC_UP,       KC_DOWN,     KC_LBRC,     KC_RBRC,           KC_TRNS,
         KC_LALT, KC_TAB,
         KC_PGUP,
         KC_PGDN, KC_ESC, KC_ENT
@@ -117,10 +144,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |EEPROM|      |      |      |      |                                       |      |    . |   0  |   =  |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        |Animat|      |       |Toggle|Solid |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
+ *                                 |Bright|Bright|      |       |      |Hue-  |Hue+  |
+ *                                 |ness- |ness+ |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -132,18 +159,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_HASH,       KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
        KC_TRNS,CTL_T(KC_PERC),KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
        EPRM,   KC_TRNS,       KC_TRNS,KC_TRNS,KC_TRNS,
-                                       KC_TRNS,KC_TRNS,
+                                       RGB_MOD,KC_TRNS,
                                                KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
+                               RGB_VAD,RGB_VAI,KC_TRNS,
        // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_ASTR, KC_F12,
                 KC_DOWN, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_TRNS,
        KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_BSLS, KC_TRNS,
                          KC_TRNS,KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
-       KC_TRNS, KC_TRNS,
+       RGB_TOG, RGB_SLD,
        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       KC_TRNS, RGB_HUD, RGB_HUI
 ),
 /* Keymap 3: Media and mouse keys
  *
@@ -230,7 +257,9 @@ void set_lights(uint8_t layer) {
 }
 
 // Runs just one time when the keyboard initializes.
-void matrix_init_user(void) { set_lights(BASE); }
+void matrix_init_user(void) {
+  set_lights(BASE);
+}
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
@@ -253,6 +282,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         return false;
       case EPRM:
         eeconfig_init();
+        return false;
+      case RGB_SLD:
+        rgblight_mode(1);
         return false;
     }
   }
