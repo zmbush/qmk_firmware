@@ -1,25 +1,3 @@
-<<<<<<< HEAD
-=======
-#----------------------------------------------------------------------------
-# On command line:
-#
-# make = Make software.
-#
-# make clean = Clean out built project files.
-#
-# That's pretty much all you need. To compile, always go make clean,
-# followed by make.
-#
-# For advanced users only:
-# make teensy = Download the hex file to the device, using teensy_loader_cli.
-#               (must have teensy_loader_cli installed).
-#
-#----------------------------------------------------------------------------
-
-# # project specific files
-SRC = matrix.c
-
->>>>>>> acc4bea9d (Set up numkey tapdance)
 # MCU name
 MCU = atmega32u4
 
@@ -52,12 +30,6 @@ UNICODE_ENABLE   = yes  # Unicode
 SWAP_HANDS_ENABLE= yes  # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
-<<<<<<< HEAD
-=======
-RGBLIGHT_ENABLE = no
-RGB_MATRIX_ENABLE = yes # enable later
-TAP_DANCE_ENABLE = yes
->>>>>>> acc4bea9d (Set up numkey tapdance)
 
 RGB_MATRIX_ENABLE = no # enable later
 RGB_MATRIX_DRIVER = IS31FL3731

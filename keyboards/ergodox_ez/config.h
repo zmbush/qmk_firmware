@@ -131,7 +131,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
-#define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
+// #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
 /* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */
 /* #define RGBLIGHT_COLOR_LAYER_2 0xFF, 0x00, 0x00 */
 /* #define RGBLIGHT_COLOR_LAYER_3 0x00, 0xFF, 0x00 */
