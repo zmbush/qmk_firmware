@@ -29,7 +29,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-    VRSN = ML_SAFE_RANGE,
+    VRSN = SAFE_RANGE,
 };
 
 // clang-format off
@@ -58,10 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_moonlander(
         KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_LEFT,           KC_RGHT, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
         KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_ESC,            DF(QWER),KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
-        KC_DELT, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_HYPR,           KC_MEH,  KC_D,    KC_H,    KC_T,    KC_N,    LT(MDIA, KC_S), KC_MINS,
+        KC_DEL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_HYPR,           KC_MEH,  KC_D,    KC_H,    KC_T,    KC_N,    LT(MDIA, KC_S), KC_MINS,
         KC_LSFT, LCTL_T(KC_SCLN),KC_Q,KC_J, KC_K,    KC_X,                                KC_B,    KC_M,    KC_W,    KC_V,    RCTL_T(KC_Z), KC_RSFT,
      GUI_T(KC_GRV),KC_QUOT,KC_LALT,KC_LEFT, KC_RGHT,         DF(QWER),           KC_PGUP,          KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, MO(SYMB),
-                                            KC_SPC,  KC_BSPC, KC_END,            KC_PGDN, KC_ESC,  KC_ENT
+                                            KC_SPC,  KC_BSPC, KC_LGUI,           KC_PGDN, KC_ESC,  KC_ENT
     ),
 
     /* Keymap 1: QWERTY Layer
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [QWER] = LAYOUT_moonlander(
         KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_LEFT,           KC_RGHT, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_ESC,            DF(BASE),KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_SLSH,
-        KC_DELT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HYPR,           KC_MEH,  KC_H,    KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), KC_MINS,
+        KC_DEL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HYPR,           KC_MEH,  KC_H,    KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), KC_MINS,
         KC_LSFT, LCTL_T(KC_Z),KC_X,KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  RCTL_T(KC_QUOT), KC_RSFT,
      GUI_T(KC_GRV),KC_QUOT,KC_LALT,KC_LEFT, KC_RGHT,         DF(BASE),           KC_PGUP,          KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, MO(SYMB),
                                             KC_SPC,  KC_BSPC, KC_LGUI,           KC_PGDN, KC_ESC,  KC_ENT
@@ -120,8 +120,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE, _______,           _______, KC_UP,   KC_7,    KC_8,    KC_9,    KC_ASTR, KC_F12,
         _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,  _______,           _______, KC_DOWN, KC_4,    KC_5,    KC_6,    KC_PLUS, _______,
         _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                             KC_AMPR, KC_1,    KC_2,    KC_3,    KC_BSLS, _______,
-    WEBUSB_PAIR, _______, _______, _______, _______,          RGB_VAI,           RGB_TOG,          _______, KC_DOT,  KC_0,    KC_EQL,  _______,
-                                            RGB_HUD, RGB_VAD, RGB_HUI, TOGGLE_LAYER_COLOR,_______, RGB_MOD
+    WEBUSB_PAIR, _______, _______, _______, _______,          RM_VALU,           RM_TOGG,          _______, KC_DOT,  KC_0,    KC_EQL,  _______,
+                                            RM_HUED, RM_VALD, RM_HUEU, TOGGLE_LAYER_COLOR,_______, RM_NEXT
     ),
 
     /* Keymap 3: Media and Mouse keys
@@ -154,6 +154,72 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______, _______,           _______, _______, KC_WBAK
     ),
 };
+
+extern rgb_config_t rgb_matrix_config;
+
+void keyboard_post_init_user(void) {
+  rgb_matrix_enable();
+}
+
+
+const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
+    [BASE] = { {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {74,255,206}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255}, {152,255,255} },
+
+    [QWER] = { {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,255}, {74,255,206}, {74,255,206}, {0,245,245}, {74,255,206}, {74,255,255}, {74,255,206}, {0,245,245}, {0,245,245}, {74,255,206}, {74,255,255}, {74,255,206}, {74,255,206}, {0,245,245}, {74,255,206}, {74,255,255}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,255}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206}, {74,255,206} },
+
+    [SYMB] = { {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255} },
+
+    [MDIA] = { {74,255,206}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,206}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,206}, {74,255,206}, {0,0,0}, {74,255,206}, {0,0,0}, {0,0,0}, {74,255,206}, {0,0,0}, {74,255,206}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,206}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,206}, {74,255,206}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,206}, {74,255,206}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,206}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,206}, {0,0,0}, {0,0,0}, {0,0,0} },
+
+};
+
+void set_layer_color(int layer) {
+  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    HSV hsv = {
+      .h = pgm_read_byte(&ledmap[layer][i][0]),
+      .s = pgm_read_byte(&ledmap[layer][i][1]),
+      .v = pgm_read_byte(&ledmap[layer][i][2]),
+    };
+    if (!hsv.h && !hsv.s && !hsv.v) {
+        rgb_matrix_set_color( i, 0, 0, 0 );
+    } else {
+        RGB rgb = hsv_to_rgb( hsv );
+        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
+    }
+  }
+}
+
+bool rgb_matrix_indicators_user(void) {
+//   if (rawhid_state.rgb_control) {
+//       return false;
+//   }
+  if (keyboard_config.disable_layer_led) { return false; }
+  switch (biton32(layer_state)) {
+    case 0:
+    case 1:
+      switch (biton32(default_layer_state)) {
+        case BASE:
+          set_layer_color(0);
+          break;
+        case QWER:
+          set_layer_color(1);
+          break;
+      }
+      break;
+    case SYMB:
+      set_layer_color(2);
+      break;
+    case MDIA:
+      set_layer_color(3);
+      break;
+   default:
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  }
+  return true;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {

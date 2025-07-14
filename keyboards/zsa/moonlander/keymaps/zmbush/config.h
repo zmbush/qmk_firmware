@@ -19,7 +19,7 @@
 #pragma once
 
 #define ORYX_CONFIGURATOR
-#define AUDIO_CLICKY
+// #define AUDIO_CLICKY
 #define MOONLANDER_USER_LEDS
 
 #define STARTUP_SONG SONG(    \
